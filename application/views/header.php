@@ -66,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <section class="sidebar">
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">NAVEGACION</li>
-          <li><a href="#"><i class="fa fa-building"></i> <span>Empresas</span></a></li>
+          <li><a href="<?=site_url()?>/empresas/"><i class="fa fa-building"></i> <span>Empresas</span></a></li>
           <li><a href="#"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
 
           <li class="header">Reportes</li>
