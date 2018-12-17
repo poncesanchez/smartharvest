@@ -21,4 +21,8 @@ class Empresa extends CI_Model{
     $this->db->where('idempresa', $empresa['idempresa']);
     $this->db->update('empresa');
   }
+
+  public function nuevaEmpresa($empresa){
+      $this->db->insert('empresa',$empresa);
+  }
 }

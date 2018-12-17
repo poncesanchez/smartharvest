@@ -17,13 +17,20 @@ class Empresas extends CI_Controller{
     $this->load->view('footer');
   }
 
+  
+
   public function editar($id){
     if (!empty($_POST))
     {
+      if($this->input->post('vigente') == null){
+        $vigente = "0";
+      }else{
+        $vigente = "1";
+      }
         $dataEmpresa = array(
            'idempresa'=>$this->input->post('idempresa'),
            'nombre'=>$this->input->post('nombre'),
-           'vigente'=>$this->input->post('vigente'),
+           'vigente'=>$vigente,
            'descripcion'=>$this->input->post('descripcion')
        );
        $this->empresa->actualizarEmpresa($dataEmpresa);
@@ -41,6 +48,20 @@ class Empresas extends CI_Controller{
     $this->load->view('header');
     $this->load-> view('empresa/editar', array('empresa'=>$empresa));
     $this->load->view('footer');
+  }
 
+  public function crear(){
+    if (!empty($_POST))
+    {
+        $empresa = array(
+           'nombre'=>$this->input->post('nombre'),
+           'vigente'=>"1",
+           'descripcion'=>$this->input->post('descripcion')
+       );
+       $this->empresa->nuevaEmpresa($empresa);
+    }
+    $this->load->view('header');
+    $this->load-> view('empresa/crear');
+    $this->load->view('footer');
   }
 }

@@ -4,10 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div><!-- /.content-wrapper -->
 <footer class="main-footer">
   <div class="pull-right hidden-xs">
-    <b>Version</b> 2.4.0
+    <b>Version</b> 1.0
   </div>
-  <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-  reserved.
+  <strong>Copyright &copy; 2018 <a href="http://smartharvest.cl">Smart Harvest</a>.</strong> Todos los derechos reservados.
 </footer>
 </div>
 <script src="<?=base_url()?>assets/bower_components/jquery/dist/jquery.min.js"></script>

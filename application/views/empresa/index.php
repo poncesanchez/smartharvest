@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </form>
         </div>
         <div class="col-md-3">
-          <button type="button" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Crear empresa</button>
+          <a class="btn btn-block btn-success" href="<?=site_url()?>/empresas/crear"><i class="fa fa-plus"></i> Crear empresa</a>
         </div>
       </div>
     </div>
