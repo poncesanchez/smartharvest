@@ -38,15 +38,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="empresa-item">
                 <div class="row">
                   <div class="col-md-9 item-description text-left">
-                    <h4><a href="<?=$empresa->idempresa?>"><?=$empresa->nombre?></a></h4>
-                    <p class="text-muted">Descripción empresa</p>
+                    <h4><a href="<?=$empresa->idempresa?>"><?=$empresa->nombre?></a>
+                      <?php if($empresa->vigente == '0'){ ?>
+                        <small class="label bg-red desactivada">Desactivada</small>
+                      <?php } ?>
+                    </h4>
+                    <p class="text-muted"><?=$empresa->descripcion?></p>
                   </div>
-                  <div class="col-md-3 pull-right text-center">
-                    <a class="btn-sm btn-primary" role="button" href="/sh/pw/dashboard/empresas/5bf4250c75149/">
-                      <i class="glyphicon glyphicon-eye-open"></i> <strong>ver</strong>
+                  <div class="col-md-3 pt-20 pull-right text-right">
+                    <a class="btn-sm btn-primary" role="button" href="<?=site_url()?>/empresas/editar/<?=$empresa->idempresa?>">
+                      <i class="glyphicon glyphicon-search"></i> ver
                     </a>
-                    <a class="btn-sm btn-success" role="button" href="/sh/pw/dashboard/empresas/5bf4250c75149/editar/">
-                      <i class="glyphicon glyphicon-pencil"></i> <strong>editar</strong>
+                    <a class="btn-sm btn-success" role="button" href="<?=site_url()?>/empresas/editar/<?=$empresa->idempresa?>">
+                      <i class="glyphicon glyphicon-pencil"></i> editar
                     </a>
                   </div>
                 </div>
