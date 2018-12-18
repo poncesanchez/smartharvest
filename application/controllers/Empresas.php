@@ -17,7 +17,21 @@ class Empresas extends CI_Controller{
     $this->load->view('footer');
   }
 
-  
+  public function home($id){
+    $this->load->model('empresa');
+    $data = $this->empresa->getEmpresa($id);
+    foreach($data->result() as $empresa){
+        $empresa = array(
+            'idempresa'=>$empresa->idempresa,
+            'nombre'=>$empresa->nombre,
+            'vigente'=>$empresa->vigente,
+            'descripcion'=>$empresa->descripcion
+        );
+    }
+    $this->load->view('header', array('idEmpresa'=>$id));
+    $this->load->view('empresa/home', array('empresa'=>$empresa));
+    $this->load->view('footer');
+  }
 
   public function editar($id){
     if (!empty($_POST))

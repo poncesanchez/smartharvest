@@ -91,6 +91,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li><a href="#"><i class="fa fa-th-large"></i> <span>Predios</span></a></li>
           <li><a href="#"><i class="fa fa-th"></i> <span>Cuarteles</span></a></li>
           <li><a href="#"><i class="fa fa-building-o"></i> <span>Contratistas</span></a></li>
+
+            <?php
+            if ($idEmpresa!=null){ ?>
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-users"></i> <span>Trabajadores</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+              <ul class="treeview-menu">
+                <li><a href="<?=site_url()?>/personas/listado/<?=$idEmpresa?>"><i class="fa fa-user"></i> Personas</a></li>
+                <li><a href="../forms/general.html"><i class="fa fa-male"></i> Jefes de Cuadrilla</a></li>
+              </ul>
+              </li>
+            <?php } ?>
+
         </ul>
       </section>
     </aside>

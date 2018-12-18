@@ -14,6 +14,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?=base_url()?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <script src="<?=base_url()?>assets/bower_components/fastclick/lib/fastclick.js"></script>
 <script src="<?=base_url()?>assets/dist/js/adminlte.min.js"></script>
+<script src="<?=base_url()?>assets/bower_components/chart.js/Chart.js"></script>
+<script src="<?=base_url()?>assets/dist/js/pages/dashboard2.js"></script>
 <script src="<?=base_url()?>assets/dist/js/demo.js"></script>
 <script>
 $(document).ready(function () {
