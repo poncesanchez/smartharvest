@@ -46,9 +46,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<?php endif; ?>
 
 			<?php if(!empty($error)):?>
-					<div class="alert alert-danger">
-							<?=$error?>
-					</div>
+        <div class="alert alert-danger alert-dismissible mt-20">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <p><i class="icon fa fa-ban"></i> <?=$error?></p>
+        </div>
 			<?php endif; ?>
 	  </div>
 	</div>

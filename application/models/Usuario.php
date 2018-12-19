@@ -32,7 +32,11 @@ class Usuario extends CI_Model{
 
     public function getData($user){
         $data = $this->db->get_where('usuario',array('nombreusuario'=>$user))->result();
-        $usuario = $data[0];
-        return $usuario;
+        if(!empty($data)){
+          $usuario = $data[0];
+          return $usuario;
+        } else {
+          return null;
+        }
     }
 }

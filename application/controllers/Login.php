@@ -38,15 +38,18 @@ class Login extends CI_Controller {
 			$usuario = $this->input->post('usuario');
 			$pass = $this->input->post('password');
 			$userdata = $this->usuario->getData($usuario);
-
-			if (password_verify($pass, $userdata->pass)) {
-				$this->session->logged_in = TRUE;
-				$userdata = $this->usuario->getData($usuario);
-				$this->session->user = $userdata;
-				redirect('login/home');
+			if (!empty($userdata)) {
+				if (password_verify($pass, $userdata->pass)) {
+					$this->session->logged_in = TRUE;
+					$this->session->user = $userdata;
+					redirect('login/home');
+				} else {
+	  			$error = "Credenciales incorrectas";
+				}
 			} else {
-  			$error = "Credenciales incorrectas";
+				$error = "Credenciales incorrectas";
 			}
+
 		}
 		$this->load->view('login',array('error'=>$error));
 	}
@@ -58,8 +61,9 @@ class Login extends CI_Controller {
 	}
 
 	public function home(){
-		$this->load->view('header');
+		$this->load->view('templates/header');
+    $this->load->view('templates/sidebar');
 		$this->load->view('index');
-		$this->load->view('footer');
+		$this->load->view('templates/footer');
 	}
 }

@@ -10,11 +10,10 @@ class Empresas extends CI_Controller{
   public function index(){
     $this->load->model('empresa');
     $data = $this->empresa->getEmpresas();
-    $this->load->view('header');
-    $this->load->view('empresa/index',array(
-      //'nombre'=>$nombre,
-      'empresas'=>$data->result()));
-    $this->load->view('footer');
+    $this->load->view('templates/header');
+    $this->load->view('templates/sidebar');
+    $this->load->view('empresa/index',array('empresas'=>$data->result(),'idEmpresa'=>null));
+    $this->load->view('templates/footer');
   }
 
   public function home($id){
@@ -28,9 +27,10 @@ class Empresas extends CI_Controller{
             'descripcion'=>$empresa->descripcion
         );
     }
-    $this->load->view('header', array('idEmpresa'=>$id));
+    $this->load->view('templates/header');
+    $this->load->view('templates/sidebar', array('idEmpresa'=>$id));
     $this->load->view('empresa/home', array('empresa'=>$empresa));
-    $this->load->view('footer');
+    $this->load->view('templates/footer');
   }
 
   public function editar($id){
@@ -59,9 +59,10 @@ class Empresas extends CI_Controller{
             'descripcion'=>$empresa->descripcion
         );
     }
-    $this->load->view('header');
-    $this->load-> view('empresa/editar', array('empresa'=>$empresa));
-    $this->load->view('footer');
+    $this->load->view('templates/header');
+    $this->load->view('templates/sidebar');
+    $this->load->view('empresa/editar', array('empresa'=>$empresa));
+    $this->load->view('templates/footer');
   }
 
   public function crear(){
@@ -74,8 +75,9 @@ class Empresas extends CI_Controller{
        );
        $this->empresa->nuevaEmpresa($empresa);
     }
-    $this->load->view('header');
+    $this->load->view('templates/header');
+    $this->load->view('templates/sidebar');
     $this->load-> view('empresa/crear');
-    $this->load->view('footer');
+    $this->load->view('templates/footer');
   }
 }
