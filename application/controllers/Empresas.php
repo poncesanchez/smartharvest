@@ -80,4 +80,5 @@ class Empresas extends CI_Controller{
     $this->load-> view('empresa/crear');
     $this->load->view('templates/footer');
   }
+
 }

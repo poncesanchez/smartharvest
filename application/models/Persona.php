@@ -20,6 +20,13 @@ class Persona extends CI_Model{
     return $this->db->get();
   }
 
+  public function getPersonaSinEmpresa($idPersona){
+    $this->db->select("*");
+    $this->db->from("persona");
+    $this->db->where("idpersona",$idPersona);
+    return $this->db->get();
+  }
+
   public function actualizarPersona($idPersona){
     $this->db->set('nombre', $empresa['nombre']);
     $this->db->set('vigente', $empresa['vigente']);

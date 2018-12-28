@@ -41,7 +41,9 @@ class Login extends CI_Controller {
 			if (!empty($userdata)) {
 				if (password_verify($pass, $userdata->pass)) {
 					$this->session->logged_in = TRUE;
-					$this->session->user = $userdata;
+					$datosSesion['usuario'] = $userdata;
+					$datosSesion['persona'] = array('nombre' => 'luis','tipoUsuario' => 'administrador');
+					$this->session->user = $datosSesion;
 					redirect('login/home');
 				} else {
 	  			$error = "Credenciales incorrectas";

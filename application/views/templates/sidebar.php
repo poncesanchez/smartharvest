@@ -19,14 +19,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="../forms/general.html"><i class="fa fa-bar-chart"></i> Panel de Control</a></li>
-              <li><a href="../forms/advanced.html"><i class="fa fa-th-large"></i> Predio</a></li>
-              <li><a href="../forms/editors.html"><i class="fa fa-street-view"></i> Jefe de Cuadrilla</a></li>
+              <?php if(!empty($idEmpresa)){ ?>
+              <li><a href="<?=site_url()?>/reportes/panelcontrol/<?=$idEmpresa?>"><i class="fa fa-bar-chart"></i> Panel de Control
+              </a></li>
+              <?php } ?>
+              <!-- no aparece en mockup <li><a href="../forms/advanced.html"><i class="fa fa-th-large"></i> Predio</a></li> -->
+              <li><a href="<?=site_url()?>/reportes/jefecuadrilla/<?=$idEmpresa?>"><i class="fa fa-street-view"></i> Jefe de Cuadrilla</a></li>
               <li><a href="../forms/editors.html"><i class="fa fa-users"></i> Trabajadores</a></li>
             </ul>
           </li>
           <li class="header">Mantenedores</li>
-          <li><a href="#"><i class="fa fa-calendar"></i> <span>Temporadas</span></a></li>
+          <!-- no abarcar en este spring <li><a href="#"><i class="fa fa-calendar"></i> <span>Temporadas</span></a></li> -->
           <li><a href="#"><i class="fa fa-th-large"></i> <span>Predios</span></a></li>
           <li><a href="#"><i class="fa fa-th"></i> <span>Cuarteles</span></a></li>
           <?php if(!empty($idEmpresa)){ ?>

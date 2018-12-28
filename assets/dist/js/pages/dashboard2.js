@@ -2,6 +2,7 @@ $(function () {
 
   'use strict';
 
+
   /* ChartJS
    * -------
    * Here we will create a few charts using ChartJS
@@ -15,11 +16,11 @@ $(function () {
   var salesChartCanvas = $('#salesChart').get(0).getContext('2d');
   // This will get the first returned node in the jQuery collection.
   var salesChart       = new Chart(salesChartCanvas);
-
   var salesChartData = {
     labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
+        type                : 'line',
         label               : 'Electronics',
         fillColor           : 'rgb(210, 214, 222)',
         strokeColor         : 'rgb(210, 214, 222)',

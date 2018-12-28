@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li class="empresa-item">
                 <div class="row">
                   <div class="col-md-9 item-description text-left">
-                    <h4><a href="<?=site_url()?>/personas/editar/<?=$persona->idpersona?>"><?=$persona->nombre." ".$persona->apellidopaterno." ".$persona->apellidomaterno?></a>
+                    <h4><a role="button" href="<?=site_url()?>/personas/editar/<?=$idEmpresa?>/<?=$persona->idpersona?>"><?=$persona->nombre." ".$persona->apellidopaterno." ".$persona->apellidomaterno?></a>
                     </h4>
                     <p class="text-muted"><?=$persona->rut."-".$persona->dv?></p>
                   </div>

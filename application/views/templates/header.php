@@ -20,6 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-black sidebar-mini">
+  <?=var_dump($this->session->user);?>
 <div class="wrapper">
   <header class="main-header">
     <a href="../../index2.html" class="logo">
@@ -52,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <a href="#" class="btn btn-primary">Perfíl</a>
                 </div>
                 <div class="pull-right">
-                  <a href="" class="btn btn-danger">Cerrar Sesión</a>
+                  <a href="<?=site_url()?>/login/logout" class="btn btn-danger">Cerrar Sesión</a>
                 </div>
               </li>
             </ul>
