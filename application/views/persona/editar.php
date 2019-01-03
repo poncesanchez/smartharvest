@@ -50,7 +50,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="row">
             <div class="form-group col-xs-3">
               <?=form_label('Genero','genero')?>
-              <?=form_input(array('name'=>'genero','class'=>'form-control','value'=>set_value('nombre',$persona['nombre'])))?>
+              <select class="form-control" name="genero">
+                <?php foreach($generos as $key=>$genero): ?>
+                  <option value="<?=$key?>" <?php if ($persona['idgenero']==$key) { echo "selected"; } ?>><?=$genero?></option>
+                <?php endforeach; ?>
+              </select>
             </div>
             <div class="form-group col-xs-3">
               <?=form_label('Contratista','contratista')?>
@@ -58,17 +62,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="form-group col-xs-3">
               <?=form_label('Contrato','contrato')?>
-              <?=form_input(array('name'=>'genero','class'=>'form-control','value'=>set_value('nombre',$persona['nombre'])))?>
+              <select class="form-control" name="contrato">
+                <?php foreach($contratos as $key=>$contrato): ?>
+                  <option value="<?=$key?>" <?php if ($persona['idtipocontrato']==$key) { echo "selected"; } ?>><?=$contrato?></option>
+                <?php endforeach; ?>
+              </select>
             </div>
             <div class="form-group col-xs-3">
               <?=form_label('Rol','rol')?>
-              <?=form_input(array('name'=>'genero','class'=>'form-control','value'=>set_value('nombre',$persona['nombre'])))?>
+              <select class="form-control" name="contrato">
+                <?php foreach($roles as $key=>$rol): ?>
+                  <option value="<?=$key?>" <?php if ($persona['idrol']==$key) { echo "selected"; } ?>><?=$rol?></option>
+                <?php endforeach; ?>
+              </select>
             </div>
           </div>
           <div class="row">
             <div class="checkbox col-xs-3">
               <label>
-                <?php if($persona['activo']=="1"){ ?>
+                <?php if($persona['vigente']=="1"){ ?>
                   <?=form_checkbox(array('name'=>'activo', 'value'=>'1', 'checked'=>true))?>
                 <?php } else { ?>
                   <?=form_checkbox(array('name'=>'activo', 'value'=>'0', 'checked'=>false))?>

@@ -6,7 +6,7 @@ class Persona extends CI_Model{
       $this->db->from("persona");
       $this->db->where("idempresa",$idEmpresa);
       $this->db->where("idrol",$rol);
-      $this->db->where("activo","1");
+      $this->db->where("vigente","1");
       $this->db->limit(10,$pagina);
       $this->db->order_by("nombre","ASC");
       return $this->db->get();
@@ -43,7 +43,30 @@ class Persona extends CI_Model{
     $this->db->from("persona");
     $this->db->where("idempresa",$idEmpresa);
     $this->db->where("idrol",$rol);
-    $this->db->where("activo","1");
+    $this->db->where("vigente","1");
     return $this->db->count_all_results();
+  }
+
+  public function getGeneros(){
+    $this->db->select("idgenero, genero");
+    $this->db->from("genero");
+    $this->db->where("vigente","1");
+    return $this->db->get();
+  }
+
+  public function getContratos(){
+    $this->db->select("*");
+    $this->db->from("tipo_contrato");
+    $this->db->where("vigente","1");
+    $this->db->order_by("idtipocontrato","ASC");
+    return $this->db->get();
+  }
+
+  public function getRol(){
+    $this->db->select("*");
+    $this->db->from("rol");
+    $this->db->where("vigente","1");
+    $this->db->order_by("idrol","ASC");
+    return $this->db->get();
   }
 }

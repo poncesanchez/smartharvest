@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <section class="content-header">
-  <h1><i class="fa fa-bar-chart"></i>  Panel de control</h1>
+  <h1><i class="fa fa-bar-chart"></i>  Asistencia</h1>
   <ol class="breadcrumb">
     <li><a href="<?=site_url()?>/login/home"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><a href="<?=site_url()?>/empresas/home/<?=$idEmpresa?>">Empresa</a></li>
@@ -53,7 +53,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="chart">
       <canvas id="myChart" width="400" height="140"></canvas>
     </div>
-
   </div>
 
   <div class="box">
@@ -69,23 +68,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">Día</th>
-                    <th scope="col">Nombre del supervisor</th>
-                    <th scope="col">Nombre labor</th>
-                    <th scope="col">Asistencia</th>
-                    <th scope="col">Hr. Ingreso</th>
-                    <th scope="col">Hr. Salida</th>
+                    <th scope="col">Trabajador</th>
+                    <th scope="col"><?php echo date("d-m-Y", strtotime( '-4 days' ) ); ?></th>
+                    <th scope="col"><?php echo date("d-m-Y", strtotime( '-3 days' ) ); ?></th>
+                    <th scope="col"><?php echo date("d-m-Y", strtotime( '-2 days' ) ); ?></th>
+                    <th scope="col"><?php echo date("d-m-Y", strtotime( '-1 days' ) ); ?></th>
+                    <th scope="col"><?php echo date("d-m-Y"); ?></th>
                   </tr>
                 </thead>
                 <tbody>
                 <?php foreach($reporteria as $key=>$asistencia): ?>
                   <tr>
-                    <th scope="row"><?=$asistencia->dia?></th>
-                    <td><?=$asistencia->supervisor?></td>
-                    <td><?=$asistencia->labor?></td>
-                    <td><?=$asistencia->asistencia?></td>
-                    <td><?=$asistencia->ingreso?></td>
-                    <td><?=$asistencia->salida?></td>
+                    <th scope="row"><?=$asistencia->trabajador?></th>
+                    <td><?php if ($asistencia->fecha1>0){ echo '<i class="fa fa-check color-green"></i>'; } else { echo '<i class="fa fa-close color-red"></i>'; } ?></td>
+                    <td><?php if ($asistencia->fecha2>0){ echo '<i class="fa fa-check color-green"></i>'; } else { echo '<i class="fa fa-close color-red"></i>'; } ?></td>
+                    <td><?php if ($asistencia->fecha3>0){ echo '<i class="fa fa-check color-green"></i>'; } else { echo '<i class="fa fa-close color-red"></i>'; } ?></td>
+                    <td><?php if ($asistencia->fecha4>0){ echo '<i class="fa fa-check color-green"></i>'; } else { echo '<i class="fa fa-close color-red"></i>'; } ?></td>
+                    <td><?php if ($asistencia->fecha5>0){ echo '<i class="fa fa-check color-green"></i>'; } else { echo '<i class="fa fa-close color-red"></i>'; } ?></td>
                   </tr>
                 <?php endforeach; ?>
                 </tbody>

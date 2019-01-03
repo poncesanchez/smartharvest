@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <section class="content-header">
   <h1><i class="fa fa-group"></i>  Jefe Cuadrilla</h1>
-
   <ol class="breadcrumb">
     <li><a href="<?=site_url()?>/login/home"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><a href="<?=site_url()?>/empresas/home/<?=$idEmpresa?>">Empresa</a></li>
@@ -45,19 +44,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </div>
   </div>
-
   <div class="grafico">
     <div class="chart">
       <canvas id="myChart" width="400" height="140"></canvas>
     </div>
-
   </div>
-
   <div class="box">
     <div class="box-body">
       <div class="list-item-container">
         <div class="no-padding">
-
             <?php if(empty($reporteria)){ ?>
               <h4>Sin resultados</h4>
             <?php } else { ?>
@@ -78,9 +73,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php foreach($reporteria as $key=>$asistencia): ?>
                   <tr>
                     <th scope="row"><?=$asistencia->dia?></th>
-                    <td><?=$asistencia->supervisor?></td>
+                    <td><?=$asistencia->trabajador?></td>
                     <td><?=$asistencia->labor?></td>
-                    <td><?=$asistencia->asistencia?></td>
+                    <td><?=$asistencia->cuartel?></td>
                     <td><?=$asistencia->ingreso?></td>
                     <td><?=$asistencia->salida?></td>
                   </tr>

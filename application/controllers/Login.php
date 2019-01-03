@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
-
 	/**
 	 * Index Page for this controller.
 	 *
@@ -42,7 +41,6 @@ class Login extends CI_Controller {
 				if (password_verify($pass, $userdata->pass)) {
 					$this->session->logged_in = TRUE;
 					$datosSesion['usuario'] = $userdata;
-					$datosSesion['persona'] = array('nombre' => 'luis','tipoUsuario' => 'administrador');
 					$this->session->user = $datosSesion;
 					redirect('login/home');
 				} else {
@@ -63,6 +61,10 @@ class Login extends CI_Controller {
 	}
 
 	public function home(){
+		if($this->session->user['usuario']->permalink!="superadmin"){
+			redirect('empresas/home/'.$this->session->user['usuario']->idempresa);
+		}
+
 		$this->load->view('templates/header');
     $this->load->view('templates/sidebar');
 		$this->load->view('index');

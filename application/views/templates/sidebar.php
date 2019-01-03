@@ -6,9 +6,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <section class="sidebar">
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">NAVEGACION</li>
-          <li><a href="<?=site_url()?>/empresas/"><i class="fa fa-building"></i> <span>Empresas</span></a></li>
+          <?php if ($this->session->user['usuario']->permalink=="superadmin") { ?>
+            <li><a href="<?=site_url()?>/empresas/"><i class="fa fa-building"></i> <span>Empresas</span></a></li>
+          <?php } ?>
           <?php if(!empty($idEmpresa)){ ?>
-            <li><a href="#"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
+            <li><a href="<?=site_url()?>/empresas/usuarios/<?=$idEmpresa?>"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
           <?php } ?>
           <li class="header">Reportes</li>
           <li class="treeview">
@@ -24,8 +26,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </a></li>
               <?php } ?>
               <!-- no aparece en mockup <li><a href="../forms/advanced.html"><i class="fa fa-th-large"></i> Predio</a></li> -->
-              <li><a href="<?=site_url()?>/reportes/jefecuadrilla/<?=$idEmpresa?>"><i class="fa fa-street-view"></i> Jefe de Cuadrilla</a></li>
-              <li><a href="../forms/editors.html"><i class="fa fa-users"></i> Trabajadores</a></li>
+              <?php if(!empty($idEmpresa)){ ?>
+                <li><a href="<?=site_url()?>/reportes/jefecuadrilla/<?=$idEmpresa?>"><i class="fa fa-street-view"></i> Jefe de Cuadrilla</a></li>
+              <?php } ?>
+              <?php if(!empty($idEmpresa)){ ?>
+              <li><a href="<?=site_url()?>/reportes/asistencia/<?=$idEmpresa?>"><i class="fa fa-users"></i> Trabajadores</a></li>
+              <?php } ?>
             </ul>
           </li>
           <li class="header">Mantenedores</li>

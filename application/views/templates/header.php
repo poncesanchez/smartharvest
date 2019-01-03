@@ -20,7 +20,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-black sidebar-mini">
-  <?=var_dump($this->session->user);?>
 <div class="wrapper">
   <header class="main-header">
     <a href="../../index2.html" class="logo">
@@ -44,8 +43,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <ul class="dropdown-menu">
               <li class="user-header">
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  <?=$this->session->user['usuario']->nombreusuario?>
+                  <small><?=$this->session->user['usuario']->descripcion?></small>
                 </p>
               </li>
               <li class="user-footer">

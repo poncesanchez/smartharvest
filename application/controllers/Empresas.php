@@ -5,6 +5,7 @@ class Empresas extends CI_Controller{
       if(!isset($this->session->logged_in) || $this->session->logged_in==FALSE)
           redirect('login');
       $this->load->model('empresa');
+      $this->load->model('usuario');
   }
 
   public function index(){
@@ -17,6 +18,11 @@ class Empresas extends CI_Controller{
   }
 
   public function home($id){
+    //Control de acceso
+    if($this->session->user['usuario']->idempresa!=$id && $this->session->user['usuario']->permalink!="superadmin"){
+      redirect('empresas/home/'.$this->session->user['usuario']->idempresa);
+    }
+
     $this->load->model('empresa');
     $data = $this->empresa->getEmpresa($id);
     foreach($data->result() as $empresa){
@@ -34,6 +40,11 @@ class Empresas extends CI_Controller{
   }
 
   public function editar($id){
+    //Control de acceso
+    if($this->session->user['usuario']->permalink!="superadmin"){
+			redirect('empresas/home/'.$this->session->user['usuario']->idempresa);
+		}
+
     if (!empty($_POST))
     {
       if($this->input->post('vigente') == null){
@@ -66,6 +77,11 @@ class Empresas extends CI_Controller{
   }
 
   public function crear(){
+    //Control de acceso
+    if($this->session->user['usuario']->permalink!="superadmin"){
+			redirect('empresas/home/'.$this->session->user['usuario']->idempresa);
+		}
+
     if (!empty($_POST))
     {
         $empresa = array(
@@ -81,4 +97,32 @@ class Empresas extends CI_Controller{
     $this->load->view('templates/footer');
   }
 
+  public function usuarios($idempresa){
+    //Control de acceso
+    if($this->session->user['usuario']->idempresa!=$idempresa && $this->session->user['usuario']->permalink!="superadmin"){
+      redirect('empresas/usuarios/'.$this->session->user['usuario']->idempresa);
+    }
+
+    if (!empty($_POST))
+    {
+      $paginacion = $this->input->post('paginacion');
+      if ($paginacion != null) {
+        if ($paginacion=='1') {
+          $pagina = 0;
+        }else{
+          $pagina = ($paginacion-1).'1';
+        }
+      }else{
+        $pagina = 0;
+      }
+    } else {
+      $pagina = 0;
+    }
+    $data = $this->usuario->getUsuarios($idempresa,$pagina);
+    $numRegistros = $this->usuario->getNumUsuarios($idempresa);
+    $this->load->view('templates/header');
+    $this->load->view('templates/sidebar', array('idEmpresa'=>$idempresa));
+    $this->load->view('usuario/index', array('usuarios'=>$data->result(),'numeroPaginas'=>$pagina));
+    $this->load->view('templates/footer');
+  }
 }

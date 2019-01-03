@@ -8,6 +8,11 @@ class Personas extends CI_Controller{
   }
 
   public function listado($idEmpresa,$rol,$pagina){
+    //Control de acceso
+    if($this->session->user['usuario']->idempresa!=$idEmpresa && $this->session->user['usuario']->permalink!="superadmin"){
+      redirect('personas/listado/'.$this->session->user['usuario']->idempresa.'/'.$rol.'/'.$pagina);
+    }
+
     $this->load->model('persona');
     if ($rol=="trabajador") {
       $rolnum = "1";
@@ -28,6 +33,11 @@ class Personas extends CI_Controller{
   }
 
   public function editar($idempresa, $idPersona){
+    //Control de acceso
+    if($this->session->user['usuario']->idempresa!=$idempresa && $this->session->user['usuario']->permalink!="superadmin"){
+      redirect('personas/listado/'.$this->session->user['usuario']->idempresa.'/'.$idPersona);
+    }
+
     if (!empty($_POST))
     {
         $dataPersona = array(
@@ -39,6 +49,21 @@ class Personas extends CI_Controller{
        $this->persona->actualizarPersona($dataPersona);
     }
     $this->load->model('persona');
+
+    $generos = $this->persona->getGeneros();
+    foreach($generos->result() as $row){
+      $arrayGeneros[htmlspecialchars($row->idgenero, ENT_QUOTES)] = htmlspecialchars($row->genero, ENT_QUOTES);
+    }
+    $contratos = $this->persona->getContratos();
+    $arrayContratos['0'] = 'Seleccionar';
+    foreach($contratos->result() as $row){
+      $arrayContratos[htmlspecialchars($row->idtipocontrato, ENT_QUOTES)] = htmlspecialchars($row->tipocontrato, ENT_QUOTES);
+    }
+    $roles = $this->persona->getRol();
+    foreach($roles->result() as $row){
+      $arrayRoles[htmlspecialchars($row->idrol, ENT_QUOTES)] = htmlspecialchars($row->descripcion, ENT_QUOTES);
+    }
+
     $data = $this->persona->getPersona($idPersona, $idempresa);
     foreach($data->result() as $persona){
         $persona = array(
@@ -55,17 +80,27 @@ class Personas extends CI_Controller{
             'idusuario'=>$persona->idusuario,
             'idcontratista'=>$persona->idcontratista,
             'idtipocontrato'=>$persona->idtipocontrato,
-            'activo'=>$persona->activo,
+            'vigente'=>$persona->vigente,
             'idrol'=>$persona->idrol
         );
     }
     $this->load->view('templates/header');
     $this->load->view('templates/sidebar',array('idEmpresa'=>$idempresa));
-    $this->load->view('persona/editar', array('persona'=>$persona));
+    $this->load->view('persona/editar', array(
+      'persona'=>$persona,
+      'generos'=>$arrayGeneros,
+      'contratos'=>$arrayContratos,
+      'roles'=>$arrayRoles)
+    );
     $this->load->view('templates/footer');
   }
 
   public function crear($idEmpresa){
+    //Control de acceso
+    if($this->session->user['usuario']->idempresa!=$idEmpresa && $this->session->user['usuario']->permalink!="superadmin"){
+      redirect('personas/listado/'.$this->session->user['usuario']->idempresa);
+    }
+
     if (!empty($_POST))
     {
         $empresa = array(

@@ -11,6 +11,11 @@ class Reportes extends CI_Controller{
   }
 
   public function panelcontrol($idempresa){
+    //Control de acceso
+    if($this->session->user['usuario']->idempresa!=$idempresa && $this->session->user['usuario']->permalink!="superadmin"){
+      redirect('reportes/panelcontrol/'.$this->session->user['usuario']->idempresa);
+    }
+
     $predio = 0;
     $jefecuadrilla = 0;
     $labor = 0;
@@ -71,6 +76,75 @@ class Reportes extends CI_Controller{
   }
 
   public function jefecuadrilla($idempresa){
+    //Control de acceso
+    if($this->session->user['usuario']->idempresa!=$idempresa && $this->session->user['usuario']->permalink!="superadmin"){
+      redirect('reportes/jefecuadrilla/'.$this->session->user['usuario']->idempresa);
+    }
+
+    $predio = 0;
+    $jefecuadrilla = 0;
+    $labor = 0;
+    $fechainicio = null;
+    $fechatermino = null;
+
+    if (!empty($_POST))
+    {
+      $paginacion = $this->input->post('paginacion');
+      if ($paginacion != null) {
+        if ($paginacion=='1') {
+          $pagina = 0;
+        }else{
+          $pagina = ($paginacion-1).'1';
+        }
+      }else{
+        $pagina = 0;
+      }
+      $predio = $this->input->post('predio');
+      $jefecuadrilla = $this->input->post('jefecuadrilla');
+      $labor = $this->input->post('labor');
+      $fechainicio = $this->input->post('fechainicio');
+    } else {
+      $pagina = 0;
+    }
+    $predios = $this->empresa->getPredios($idempresa);
+    $arrayPredios['0'] = 'Seleccionar';
+    foreach($predios->result() as $row){
+      $arrayPredios[htmlspecialchars($row->idpredio, ENT_QUOTES)] = htmlspecialchars($row->nombre, ENT_QUOTES);
+    }
+    $jefeCuadrilla = $this->empresa->getJefeCuadrillas($idempresa);
+    $arrayJCuadrilla['0'] = "Seleccionar";
+    foreach ($jefeCuadrilla->result() as $row) {
+      $arrayJCuadrilla[htmlspecialchars($row->idpersona, ENT_QUOTES)] = htmlspecialchars($row->nombre, ENT_QUOTES);
+    }
+
+    $labores = $this->empresa->getLabores($idempresa);
+    $arrayLabores['0'] = "Seleccionar";
+    foreach ($labores->result() as $row) {
+      $arrayLabores[htmlspecialchars($row->idlabor, ENT_QUOTES)] = htmlspecialchars($row->nombre, ENT_QUOTES);
+    }
+
+    $reporteria = $this->panelcontrol->reporteJefeCuadrilla($idempresa, $pagina, $predio, $jefecuadrilla, $labor, $fechainicio);
+    $numeroPaginas = $this->panelcontrol->numReporteJefeCuadrilla($idempresa, $pagina, $predio, $jefecuadrilla, $labor, $fechainicio);
+    $this->load->view('templates/header');
+    $this->load->view('templates/sidebar', array('idEmpresa'=>$idempresa));
+    $this->load->view('asistencia/jefecuadrilla',array(
+      'idEmpresa'=>$idempresa,
+      'predios'=>$arrayPredios,
+      'jefescuadrilla' =>$arrayJCuadrilla,
+      'labores' => $arrayLabores,
+      'reporteria' => $reporteria->result(),
+      'numeroPaginas' => $numeroPaginas,
+      'pagina' => $pagina
+    ));
+    $this->load->view('templates/footer');
+  }
+
+  public function asistencia($idempresa){
+    //Control de acceso
+    if($this->session->user['usuario']->idempresa!=$idempresa && $this->session->user['usuario']->permalink!="superadmin"){
+      redirect('reportes/asistencia/'.$this->session->user['usuario']->idempresa);
+    }
+
     $predio = 0;
     $jefecuadrilla = 0;
     $labor = 0;
@@ -114,17 +188,17 @@ class Reportes extends CI_Controller{
       $arrayLabores[htmlspecialchars($row->idlabor, ENT_QUOTES)] = htmlspecialchars($row->nombre, ENT_QUOTES);
     }
 
-    $reporteria = $this->panelcontrol->getDefault($idempresa, $pagina, $predio, $jefecuadrilla, $labor, $fechainicio, $fechatermino);
-    $numeroPaginas = $this->panelcontrol->getDefaultNumber($idempresa, $pagina, $predio, $jefecuadrilla, $labor, $fechainicio, $fechatermino);
+    $reporteria = $this->panelcontrol->reporteTrabajador($idempresa, $pagina, $predio, $jefecuadrilla, $labor, $fechainicio, $fechatermino);
+    /*$numeroPaginas = $this->panelcontrol->numReporteJefeCuadrilla($idempresa, $pagina, $predio, $jefecuadrilla, $labor, $fechainicio);*/
     $this->load->view('templates/header');
     $this->load->view('templates/sidebar', array('idEmpresa'=>$idempresa));
-    $this->load->view('asistencia/jefecuadrilla',array(
+    $this->load->view('asistencia/asistencia',array(
       'idEmpresa'=>$idempresa,
       'predios'=>$arrayPredios,
       'jefescuadrilla' =>$arrayJCuadrilla,
       'labores' => $arrayLabores,
       'reporteria' => $reporteria->result(),
-      'numeroPaginas' => $numeroPaginas,
+      'numeroPaginas' => null,
       'pagina' => $pagina
     ));
     $this->load->view('templates/footer');
