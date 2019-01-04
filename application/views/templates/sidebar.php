@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li><a href="<?=site_url()?>/empresas/usuarios/<?=$idEmpresa?>"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
           <?php } ?>
           <li class="header">Reportes</li>
-          <li class="treeview">
+          <li class="treeview <?php if(!empty($active)){ ?><?php if($active){ ?>active<?php } ?><?php } ?>">
             <a href="#">
               <i class="fa fa-calendar-check-o"></i> <span>Asistencia</span>
               <span class="pull-right-container">

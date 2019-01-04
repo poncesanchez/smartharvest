@@ -39,22 +39,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <div class="col-md-3">
           <label>Fecha inicio:</label>
-          <?=form_input(array('name'=>'fechainicio','class'=>'form-control','type'=>'date','value'=>set_value('fechainicio')))?>
+          <?=form_input(array('name'=>'fechainicio','onChange'=>'filtroFecha()','class'=>'form-control','type'=>'date', 'id'=>'fechaInicio', 'value'=>set_value('fechainicio')))?>
         </div>
         <div class="col-md-3">
           <label>Fecha fin:</label>
-          <?=form_input(array('name'=>'fechatermino','class'=>'form-control','type'=>'date','disabled'=>true,'value'=>set_value('fechatermino')))?>
+          <?=form_input(array('name'=>'fechatermino','onChange'=>'fechaFin()','class'=>'form-control','id'=>'fechaTermino','type'=>'date','disabled'=>true,'value'=>set_value('fechatermino')))?>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="grafico">
-    <div class="chart">
-      <canvas id="myChart" width="400" height="140"></canvas>
-    </div>
-  </div>
-
   <div class="box">
     <div class="box-body">
       <div class="list-item-container">

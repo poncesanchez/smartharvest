@@ -39,11 +39,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <div class="col-md-3">
           <label>Fecha inicio:</label>
-          <?=form_input(array('name'=>'fechainicio','class'=>'form-control','type'=>'date','value'=>set_value('fechainicio')))?>
+          <?=form_input(array('name'=>'fechainicio','onChange'=>'filtroFecha()','class'=>'form-control','type'=>'date', 'id'=>'fechaInicio', 'value'=>set_value('fechainicio')))?>
         </div>
         <div class="col-md-3">
           <label>Fecha fin:</label>
-          <?=form_input(array('name'=>'fechatermino','class'=>'form-control','type'=>'date','disabled'=>true,'value'=>set_value('fechatermino')))?>
+          <?=form_input(array('name'=>'fechatermino','onChange'=>'fechaFin()','class'=>'form-control','id'=>'fechaTermino','type'=>'date','disabled'=>true,'value'=>set_value('fechatermino')))?>
         </div>
       </div>
     </div>
@@ -53,7 +53,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="chart">
       <canvas id="myChart" width="400" height="140"></canvas>
     </div>
-
+    <script>
+  		var chartData = {
+  			labels: [<?php echo "'".implode("','",$dataGrafico["fechas"])."'"; ?>],
+  			datasets: [{
+  				type: 'line',
+  				label: 'Horas Normales',
+  				borderColor: 'rgb(0, 167, 94)',
+          backgroundColor: 'rgb(0, 167, 94)',
+  				borderWidth: 2,
+  				fill: false,
+  				data: [<?php echo implode(',',$dataGrafico['horasNormales']); ?>]
+  			}, {
+  				type: 'line',
+  				label: 'Horas Extras',
+  				data: [<?php echo implode(',',$dataGrafico['horasExtras']); ?>],
+  				borderColor: 'rgb(189, 0, 0)',
+          backgroundColor: 'rgb(189, 0, 0)',
+          fill: false,
+  				borderWidth: 2
+  			}, {
+  				type: 'bar',
+  				label: 'Asistencia',
+  				backgroundColor: 'rgb(74, 113, 194)',
+  				data: [<?php echo implode(',',$dataGrafico['asistencias']); ?>]
+  			}]
+    	};
+  		window.onload = function() {
+  			var ctx = document.getElementById('myChart').getContext('2d');
+  			window.myMixedChart = new Chart(ctx, {
+  				type: 'bar',
+  				data: chartData,
+  				options: {
+  					responsive: true,
+  					title: {
+  						display: false
+  					},
+  					tooltips: {
+  						mode: 'index',
+  						intersect: true
+  					}
+  				}
+  			});
+  		};
+    </script>
   </div>
 
   <div class="box">

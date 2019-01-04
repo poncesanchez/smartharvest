@@ -21,10 +21,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
           </div>
           <div class="col-md-3">
-            <?=form_button(array('type'=>'submit','class'=>'btn btn-block btn-success'),'<i class="fa fa-plus"></i> Agregar')?>
+            <?=form_button(array('type'=>'submit','class'=>'btn btn-block btn-success'),'<i class="fa fa-search"></i> Filtrar resultados')?>
           </div>
       </div>
-      <div class="row">
+      <div class="row mt-10">
         <div class="col-md-3">
           <label>Predio:</label>
           <?=form_dropdown(array('name'=>'predio','class'=>'form-control','value'=>set_value('predio')),$predios) ?>
@@ -42,11 +42,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <?=form_input(array('name'=>'fechainicio','class'=>'form-control','type'=>'date','value'=>set_value('fechainicio')))?>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="grafico">
-    <div class="chart">
-      <canvas id="myChart" width="400" height="140"></canvas>
     </div>
   </div>
   <div class="box">
