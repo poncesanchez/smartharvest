@@ -4,6 +4,8 @@ class Empresa extends CI_Model{
   public function getEmpresas(){
     $this->db->select("*");
     $this->db->from("empresa");
+    $this->db->where("vigente",1);
+    $this->db->order_by("idempresa");
     return $this->db->get();
   }
 
@@ -61,5 +63,42 @@ class Empresa extends CI_Model{
     $this->db->where("vigente",1);
     $this->db->order_by("idlabor");
     return $this->db->get();
+  }
+
+  public function borrarEmpresa($id){
+    $this->db->set('vigente', "0");
+    $this->db->where('idempresa', $id);
+    $this->db->update('empresa');
+  }
+
+  public function borrarEmpresaAsistencias($id){
+    $this->db->set('vigente',"0");
+    $this->db->where('idempresa',$id);
+    $this->db->update('asistencia');
+  }
+
+  public function borarEmpresaPersonas($id){
+    $this->db->set('vigente',"0");
+    $this->db->where("idempresa",$id);
+    $this->db->update("persona");
+  }
+
+  public function borrarEmpresaCuarteles($id){
+    $this->db->join("predio","predio.idpredio = cuartel.idpredio");
+    $this->db->set("cuartel.vigente","0");
+    $this->db->where("predio.idempresa",$id);
+    $this->db->update("cuartel");
+  }
+
+  public function borrarEmpresaPredio($id){
+    $this->db->set("vigente","0");
+    $this->db->where("idempresa",$id);
+    $this->db->update("predio");
+  }
+
+  public function borrarEmpresaUsuario($id){
+    $this->db->set("vigente","0");
+    $this->db->where("idempresa",$id);
+    $this->db->update("usuario");
   }
 }

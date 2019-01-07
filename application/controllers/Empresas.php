@@ -81,7 +81,6 @@ class Empresas extends CI_Controller{
     if($this->session->user['usuario']->permalink!="superadmin"){
 			redirect('empresas/home/'.$this->session->user['usuario']->idempresa);
 		}
-
     if (!empty($_POST))
     {
         $empresa = array(
@@ -123,6 +122,43 @@ class Empresas extends CI_Controller{
     $this->load->view('templates/header');
     $this->load->view('templates/sidebar', array('idEmpresa'=>$idempresa));
     $this->load->view('usuario/index', array('usuarios'=>$data->result(),'numeroPaginas'=>$pagina));
+    $this->load->view('templates/footer');
+  }
+
+  public function borrar($id){
+    //Control de acceso
+    if($this->session->user['usuario']->permalink!="superadmin"){
+			redirect('empresas/home/'.$this->session->user['usuario']->idempresa);
+		}
+
+    $error = "";
+    if (!empty($_POST))
+    {
+      if (strtoupper($this->input->post('eliminar')) == "ELIMINAR") {
+        $idEmpresa = $this->input->post('idempresa');
+        $this->empresa->borrarEmpresa($idEmpresa);
+        $this->empresa->borrarEmpresaAsistencias($idEmpresa);
+        $this->empresa->borarEmpresaPersonas($idEmpresa);
+        $this->empresa->borrarEmpresaCuarteles($idEmpresa);
+        $this->empresa->borrarEmpresaPredio($idEmpresa);
+        $this->empresa->borrarEmpresaUsuario($idEmpresa);
+        redirect('empresas/');
+      } else{
+        $error = "La palabra ingresada es incorrecta.";
+      }
+    }
+    $data = $this->empresa->getEmpresa($id);
+    foreach($data->result() as $empresa){
+        $empresa = array(
+            'idempresa'=>$empresa->idempresa,
+            'nombre'=>$empresa->nombre,
+            'vigente'=>$empresa->vigente,
+            'descripcion'=>$empresa->descripcion
+        );
+    }
+    $this->load->view('templates/header');
+    $this->load->view('templates/sidebar');
+    $this->load->view('empresa/borrar', array('empresa'=>$empresa,'error'=>$error));
     $this->load->view('templates/footer');
   }
 }

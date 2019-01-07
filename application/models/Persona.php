@@ -51,7 +51,10 @@ class Persona extends CI_Model{
     $this->db->select("idgenero, genero");
     $this->db->from("genero");
     $this->db->where("vigente","1");
-    return $this->db->get();
+    foreach($this->db->get()->result() as $row){
+      $arrayGeneros[htmlspecialchars($row->idgenero, ENT_QUOTES)] = htmlspecialchars($row->genero, ENT_QUOTES);
+    }
+    return $arrayGeneros;
   }
 
   public function getContratos(){
@@ -59,7 +62,11 @@ class Persona extends CI_Model{
     $this->db->from("tipo_contrato");
     $this->db->where("vigente","1");
     $this->db->order_by("idtipocontrato","ASC");
-    return $this->db->get();
+    $arrayContratos['0'] = 'Seleccionar';
+    foreach($this->db->get()->result() as $row){
+      $arrayContratos[htmlspecialchars($row->idtipocontrato, ENT_QUOTES)] = htmlspecialchars($row->tipocontrato, ENT_QUOTES);
+    }
+    return $arrayContratos;
   }
 
   public function getRol(){
@@ -67,6 +74,9 @@ class Persona extends CI_Model{
     $this->db->from("rol");
     $this->db->where("vigente","1");
     $this->db->order_by("idrol","ASC");
-    return $this->db->get();
+    foreach($this->db->get()->result() as $row){
+      $arrayRoles[htmlspecialchars($row->idrol, ENT_QUOTES)] = htmlspecialchars($row->descripcion, ENT_QUOTES);
+    }
+    return $arrayRoles;
   }
 }

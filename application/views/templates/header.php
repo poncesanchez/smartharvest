@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body class="hold-transition skin-black sidebar-mini">
 <div class="wrapper">
   <header class="main-header">
-    <a href="../../index2.html" class="logo">
+    <a href="<?=site_url()?>/login/home" class="logo">
       <span class="logo-mini"><b>S</b>H</span>
       <span class="logo-lg"><b>Smart</b> Harvest</span>
     </a>

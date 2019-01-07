@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <section class="content-header">
-  <h1><i class="fa fa-building"></i> Editar <strong><?=$persona['nombre']?> <?=$persona['apellidopaterno']?></strong></h1>
+  <h1><i class="fa fa-users"></i> Editar <strong><?=$persona['nombre']?> <?=$persona['apellidopaterno']?></strong></h1>
   <ol class="breadcrumb">
     <li><a href="<?=site_url()?>/login/home"><i class="fa fa-home"></i> Home</a></li>
     <li><a href="<?=site_url()?>/empresas">Empresas</a></li>
@@ -75,18 +75,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <option value="<?=$key?>" <?php if ($persona['idrol']==$key) { echo "selected"; } ?>><?=$rol?></option>
                 <?php endforeach; ?>
               </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class="checkbox col-xs-3">
-              <label>
-                <?php if($persona['vigente']=="1"){ ?>
-                  <?=form_checkbox(array('name'=>'activo', 'value'=>'1', 'checked'=>true))?>
-                <?php } else { ?>
-                  <?=form_checkbox(array('name'=>'activo', 'value'=>'0', 'checked'=>false))?>
-                <?php } ?>
-                Habilitado
-              </label>
             </div>
           </div>
         </div>

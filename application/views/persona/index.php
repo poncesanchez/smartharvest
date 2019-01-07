@@ -30,7 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </form>
         </div>
         <div class="col-md-3">
-          <a class="btn btn-block btn-success" href="<?=site_url()?>/empresas/crear"><i class="fa fa-plus"></i> Crear Jefe de cuadrilla</a>
+          <a class="btn btn-block btn-success" href="<?=site_url()?>/personas/crear/<?=$idEmpresa?>"><i class="fa fa-plus"></i> Crear Jefe de cuadrilla</a>
         </div>
       </div>
     </div>
@@ -52,8 +52,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <p class="text-muted"><?=$persona->rut."-".$persona->dv?></p>
                   </div>
                   <div class="col-md-3 pt-20 pull-right text-right">
+                    <a class="btn-sm btn-primary" role="button" href="<?=site_url()?>/personas/editar/<?=$idEmpresa?>/<?=$persona->idpersona?>">
+                      <i class="glyphicon glyphicon-search"></i> ver
+                    </a>
                     <a class="btn-sm btn-success" role="button" href="<?=site_url()?>/personas/editar/<?=$idEmpresa?>/<?=$persona->idpersona?>">
                       <i class="glyphicon glyphicon-pencil"></i> editar
+                    </a>
+                    <a class="btn-sm btn-danger" role="button" href="<?=site_url()?>/personas/borrar/<?=$idEmpresa?>/<?=$persona->idpersona?>">
+                      <i class="glyphicon glyphicon-trash"></i> Borrar
                     </a>
                   </div>
                 </div>

@@ -2,11 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <section class="content-header">
-  <h1><i class="fa fa-bar-chart"></i>  Asistencia</h1>
+  <h1><i class="fa fa-users"></i>  Trabajadores</h1>
   <ol class="breadcrumb">
     <li><a href="<?=site_url()?>/login/home"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><a href="<?=site_url()?>/empresas/home/<?=$idEmpresa?>">Empresa</a></li>
-    <li class="active">Panel de control</li>
+    <li class="active">Trabajadores</li>
   </ol>
 </section>
 <?=form_open('reportes/panelcontrol/'.$idEmpresa)?>

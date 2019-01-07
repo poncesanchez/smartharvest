@@ -48,21 +48,10 @@ class Personas extends CI_Controller{
        );
        $this->persona->actualizarPersona($dataPersona);
     }
-    $this->load->model('persona');
 
-    $generos = $this->persona->getGeneros();
-    foreach($generos->result() as $row){
-      $arrayGeneros[htmlspecialchars($row->idgenero, ENT_QUOTES)] = htmlspecialchars($row->genero, ENT_QUOTES);
-    }
-    $contratos = $this->persona->getContratos();
-    $arrayContratos['0'] = 'Seleccionar';
-    foreach($contratos->result() as $row){
-      $arrayContratos[htmlspecialchars($row->idtipocontrato, ENT_QUOTES)] = htmlspecialchars($row->tipocontrato, ENT_QUOTES);
-    }
-    $roles = $this->persona->getRol();
-    foreach($roles->result() as $row){
-      $arrayRoles[htmlspecialchars($row->idrol, ENT_QUOTES)] = htmlspecialchars($row->descripcion, ENT_QUOTES);
-    }
+    $arrayGeneros = $this->persona->getGeneros();
+    $arrayContratos = $this->persona->getContratos();
+    $arrayRoles = $this->persona->getRol();
 
     $data = $this->persona->getPersona($idPersona, $idempresa);
     foreach($data->result() as $persona){
@@ -95,12 +84,11 @@ class Personas extends CI_Controller{
     $this->load->view('templates/footer');
   }
 
-  public function crear($idEmpresa){
+  public function crear($idempresa){
     //Control de acceso
-    if($this->session->user['usuario']->idempresa!=$idEmpresa && $this->session->user['usuario']->permalink!="superadmin"){
+    if($this->session->user['usuario']->idempresa!=$idempresa && $this->session->user['usuario']->permalink!="superadmin"){
       redirect('personas/listado/'.$this->session->user['usuario']->idempresa);
     }
-
     if (!empty($_POST))
     {
         $empresa = array(
@@ -110,9 +98,66 @@ class Personas extends CI_Controller{
        );
        $this->empresa->nuevaEmpresa($empresa);
     }
+
+    $arrayGeneros = $this->persona->getGeneros();
+    $arrayContratos = $this->persona->getContratos();
+    $arrayRoles = $this->persona->getRol();
+
     $this->load->view('templates/header');
-    $this->load->view('templates/sidebar');
-    $this->load->view('personas/crear');
+    $this->load->view('templates/sidebar',array('idEmpresa'=>$idempresa));
+    $this->load->view('persona/crear',array(
+      'idEmpresa'=>$idempresa,
+      'persona'=>null,
+      'generos'=>$arrayGeneros,
+      'contratos'=>$arrayContratos,
+      'roles'=>$arrayRoles
+    ));
+    $this->load->view('templates/footer');
+  }
+
+  public function borrar($idempresa, $idpersona){
+    //Control de acceso
+    if($this->session->user['usuario']->permalink!="superadmin"){
+			redirect('empresas/home/'.$this->session->user['usuario']->idempresa);
+		}
+
+    $error = "";
+    if (!empty($_POST))
+    {
+      if (strtoupper($this->input->post('eliminar')) == "ELIMINAR") {
+        $idEmpresa = $this->input->post('idpersona');
+        $this->empresa->borrarEmpresaUsuario($idEmpresa);
+        redirect('personas/listado/'.$idEmpresa.'/trabajador/0');
+      } else{
+        $error = "La palabra ingresada es incorrecta.";
+      }
+    }
+    $data = $this->persona->getPersona($idpersona, $idempresa);
+    foreach($data->result() as $persona){
+        $persona = array(
+            'idpersona'=>$persona->idpersona,
+            'idempresa'=>$persona->idempresa,
+            'rut'=>$persona->rut,
+            'dv'=>$persona->dv,
+            'nombre'=>$persona->nombre,
+            'apellidopaterno'=>$persona->apellidopaterno,
+            'apellidomaterno'=>$persona->apellidomaterno,
+            'fechainicio'=>$persona->fechainicio,
+            'fechatermino'=>$persona->fechatermino,
+            'idgenero'=>$persona->idgenero,
+            'idusuario'=>$persona->idusuario,
+            'idcontratista'=>$persona->idcontratista,
+            'idtipocontrato'=>$persona->idtipocontrato,
+            'vigente'=>$persona->vigente,
+            'idrol'=>$persona->idrol
+        );
+    }
+    $this->load->view('templates/header');
+    $this->load->view('templates/sidebar',array('idEmpresa'=>$idempresa));
+    $this->load->view('persona/borrar', array(
+      'persona'=>$persona,
+      'error'=>$error
+    ));
     $this->load->view('templates/footer');
   }
 }

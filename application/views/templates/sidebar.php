@@ -8,10 +8,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="header">NAVEGACION</li>
           <?php if ($this->session->user['usuario']->permalink=="superadmin") { ?>
             <li><a href="<?=site_url()?>/empresas/"><i class="fa fa-building"></i> <span>Empresas</span></a></li>
+            <li><a href="<?=site_url()?>/empresas/"><i class="fa fa-lock"></i> <span>Administradores</span></a></li>
           <?php } ?>
+
           <?php if(!empty($idEmpresa)){ ?>
-            <li><a href="<?=site_url()?>/empresas/usuarios/<?=$idEmpresa?>"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
-          <?php } ?>
           <li class="header">Reportes</li>
           <li class="treeview <?php if(!empty($active)){ ?><?php if($active){ ?>active<?php } ?><?php } ?>">
             <a href="#">
@@ -34,11 +34,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <?php } ?>
             </ul>
           </li>
+          <?php } ?>
+
+          <?php if(!empty($idEmpresa)){ ?>
           <li class="header">Mantenedores</li>
+          <li><a href="<?=site_url()?>/empresas/usuarios/<?=$idEmpresa?>"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
           <!-- no abarcar en este spring <li><a href="#"><i class="fa fa-calendar"></i> <span>Temporadas</span></a></li> -->
           <li><a href="#"><i class="fa fa-th-large"></i> <span>Predios</span></a></li>
           <li><a href="#"><i class="fa fa-th"></i> <span>Cuarteles</span></a></li>
-          <?php if(!empty($idEmpresa)){ ?>
+
           <li><a href="<?=site_url()?>/personas/listado/<?=$idEmpresa?>/contratista/0"><i class="fa fa-building-o"></i> <span>Contratistas</span></a></li>
             <li class="treeview">
               <a href="#">

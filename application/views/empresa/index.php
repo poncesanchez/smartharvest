@@ -52,6 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <a class="btn-sm btn-success" role="button" href="<?=site_url()?>/empresas/editar/<?=$empresa->idempresa?>">
                       <i class="glyphicon glyphicon-pencil"></i> editar
                     </a>
+                    <a class="btn-sm btn-danger" role="button" href="<?=site_url()?>/empresas/borrar/<?=$empresa->idempresa?>">
+                      <i class="fa fa-trash"></i> Borrar
+                    </a>
                   </div>
                 </div>
               </li>
